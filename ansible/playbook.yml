@@ -1,0 +1,43 @@
+---
+- name: Wordpress | Create www/site data directory
+  file:
+    path: "/var/www/wordpress"
+    state: directory
+    owner: 'www-data'
+    group: 'www-data'
+    mode: 0755
+
+- name: Wordpress | Download latest
+  to /tmp
+  get_url: 
+    url: https://wordpress.org/latest.tar.gz
+    force: no 
+    dest: /tmp/wordpress.tar.gz
+
+- name: Wordpress | Extract archive
+  unarchive: 
+    src: /tmp/wordpress.tar.gz
+    dest: /tmp 
+    copy: no
+
+- name: Wordpress | Copy wordpress file to site directory
+  raw: cp -r /tmp/wordpress/* {{ www_directory }}/
+
+- name: Wordpress | Give permission for file
+  raw: find {{ www_directory }} -type f -exec chmod 644 {} +
+
+- name: Wordpress | Give permission for directory
+  raw: find {{ www_directory }} -type d -exec chmod 755 {} +
+
+- name: Wordpress | Change owner
+  raw: chown -R {{ owner_user }}:{{ owner_group }} {{ www_directory }}/*
+
+- name: Wordpresss | Remove wordpress-{{wp_version}}.tar.gz
+  file: 
+    path: /tmp/wordpress.tar.gz
+    state: absent
+
+- name: Wordpress | Copy Wp-config file
+  template: 
+    src: 'wp-config.php'
+    dest: '/var/www/wordpress/wp-config.php'
