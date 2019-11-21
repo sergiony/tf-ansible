@@ -1,5 +1,5 @@
 variable "vpc_id" {
-  type = "string"
+  type = string
 }
 variable "app_subnet_ids" {
   type = any
@@ -7,11 +7,11 @@ variable "app_subnet_ids" {
 }
 
 variable "app_sg" {
-  type = "string"
+  type = string
   description = "ID of the Security Group used by the nodes."
 }
 
 variable "target_group_arn" {
-  type = "string"
+  type = string
   description = "ARN of the Target Group pointing at the web app."
 }

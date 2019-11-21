@@ -19,19 +19,3 @@ resource "aws_alb_listener" "webapp-listener" {
   }
 }
 
-
-resource "aws_alb_listener_rule" "back_end_api" {
-  listener_arn = aws_alb_listener.webapp-listener.arn
-  priority     = 90
-
-  action {
-    type             = "forward"
-    target_group_arn = "${var.convertr_tg_arn}"
-  }
-
-  condition {
-    field  = "path-pattern"
-    values = ["/*"]
-  }
-}
-

@@ -25,26 +25,26 @@ variable "accessing_computer_ip" {
 }
 
 variable "instance_type" {
-  type = "string"
+  type = string
   description = "Instance type"
 }
 
 variable "ami_id" {
-  type = "string"
+  type = string
   description = "AMI ID for instances"
 }
 
 variable "public_key" {
-  type = "string"
+  type = string
   description = "SSH public key used to connect to instances"
 }
 
 variable "rds_user" {
-  type = "string"
+  type = string
   description = "RDS user"
 }
 
 variable "rds_pass" {
-  type = "string"
+  type = string
   description = "SSH public key used to connect to instances"
 }
